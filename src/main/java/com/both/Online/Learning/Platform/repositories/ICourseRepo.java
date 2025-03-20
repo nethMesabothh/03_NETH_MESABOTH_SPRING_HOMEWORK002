@@ -13,9 +13,9 @@ public interface ICourseRepo {
 
   @Results(id = "courseMapper", value = {@Result(property = "courseId", column = "course_id"), @Result(property = "courseName", column = "course_name"), @Result(property = "description", column = "description"), @Result(property = "instructor", column = "instructor_id", one = @One(select = "com.both.Online.Learning.Platform.repositories.IInstructorRepo.getInstructorById"))})
   @Select("""
-          SELECT * FROM courses;
+          SELECT * FROM courses OFFSET #{offset} LIMIT #{size};
           """)
-  List<Course> getAllCourses();
+  List<Course> getAllCourses(int offset, Integer size);
 
 
   @ResultMap("courseMapper")

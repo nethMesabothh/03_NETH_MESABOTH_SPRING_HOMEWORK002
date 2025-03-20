@@ -10,6 +10,7 @@ import com.both.Online.Learning.Platform.services.IStudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,9 +27,10 @@ public class StudentService implements IStudentService {
   }
 
   @Override
-  public ResponseEntity<APIResponseStudent<List<Student>>> getAllStudents() {
+  public ResponseEntity<APIResponseStudent<List<Student>>> getAllStudents(Integer page, Integer size) {
 
-    List<Student> students = studentRepo.getAllStudents();
+    int offset = (page - 1 ) * size;
+    List<Student> students = studentRepo.getAllStudents(offset, size);
 
     APIResponseStudent<List<Student>> response = new APIResponseStudent<>("All students have been successfully fetched.", students, HttpStatus.OK, LocalDateTime.now());
 
@@ -66,7 +68,14 @@ public class StudentService implements IStudentService {
 
     Student student = studentRepo.updateStudentById(request, studentId);
 
-    APIResponseStudent<Student> response = new APIResponseStudent<>("The student has been successfully updated.", student, HttpStatus.OK, LocalDateTime.now());
+    studentCourse.deleteCourseIdByStudentId(studentId);
+
+    for (Long courseId : request.getCourseId()) {
+      studentCourse.insertCourseByStudentId(student.getStudentId(), courseId);
+    }
+
+
+    APIResponseStudent<Student> response = new APIResponseStudent<>("The student has been successfully updated.", studentRepo.getStudentById(student.getStudentId()), HttpStatus.OK, LocalDateTime.now());
 
 
     return ResponseEntity.ok().body(response);
@@ -75,7 +84,8 @@ public class StudentService implements IStudentService {
   @Override
   public ResponseEntity<APIResponseStudent<Student>> deleteStudentById(Long studentId) {
 
-    Student student = studentRepo.deleteStudentById(studentId);
+    Student student = studentRepo.getStudentById(studentId);
+    studentRepo.deleteStudentById(studentId);
 
     APIResponseStudent<Student> response = new APIResponseStudent<>("The student has been successfully deleted.", student, HttpStatus.OK, LocalDateTime.now());
 

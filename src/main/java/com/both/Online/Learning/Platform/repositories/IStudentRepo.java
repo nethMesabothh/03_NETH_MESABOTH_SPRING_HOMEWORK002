@@ -19,9 +19,9 @@ public interface IStudentRepo {
           @Result(property = "courses", column = "student_id", many = @Many(select = "com.both.Online.Learning.Platform.repositories.IStudentCourse.getAllCoursesByStudentId"))
   })
   @Select("""
-          SELECT * FROM students;
+          SELECT * FROM students OFFSET #{offset} LIMIT #{size};
           """)
-  List<Student> getAllStudents();
+  List<Student> getAllStudents(int offset, Integer size);
 
   @ResultMap("studentMapper")
   @Select("""

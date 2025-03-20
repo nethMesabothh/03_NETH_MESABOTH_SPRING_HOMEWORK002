@@ -21,8 +21,8 @@ public class StudentController {
 
 
   @GetMapping
-  public ResponseEntity<APIResponseStudent<List<Student>>> getAllStudents() {
-    return studentService.getAllStudents();
+  public ResponseEntity<APIResponseStudent<List<Student>>> getAllStudents(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer size) {
+    return studentService.getAllStudents(page, size);
   }
 
   @PostMapping

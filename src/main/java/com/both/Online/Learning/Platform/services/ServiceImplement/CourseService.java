@@ -25,8 +25,11 @@ public class CourseService implements ICourseService {
 
 
   @Override
-  public ResponseEntity<APIResponseCourse<List<Course>>> getAllCourses() {
-    List<Course> courses = courseRepo.getAllCourses();
+  public ResponseEntity<APIResponseCourse<List<Course>>> getAllCourses(Integer page, Integer size) {
+
+    int offset = (page - 1) * size;
+
+    List<Course> courses = courseRepo.getAllCourses(offset, size);
 
     APIResponseCourse<List<Course>> response = new APIResponseCourse<>("All courses have been successfully fetched.", courses, HttpStatus.OK, LocalDateTime.now());
 

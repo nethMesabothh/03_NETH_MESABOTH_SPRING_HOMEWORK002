@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface ICourseService {
 
-  ResponseEntity<APIResponseCourse<List<Course>>> getAllCourses();
+  ResponseEntity<APIResponseCourse<List<Course>>> getAllCourses(Integer page, Integer size);
 
 
   ResponseEntity<APIResponseCourse<Course>> createCourse(CourseRequest request);

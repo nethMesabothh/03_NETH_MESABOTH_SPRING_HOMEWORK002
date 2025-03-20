@@ -24,9 +24,11 @@ public class InstructorService implements IInstructorService {
 
 
   @Override
-  public ResponseEntity<APIResponseInstructor<List<Instructor>>> getAllInstructors() {
+  public ResponseEntity<APIResponseInstructor<List<Instructor>>> getAllInstructors(Integer page, Integer size) {
 
-    List<Instructor> instructors = instructorRepo.getAllInstructors();
+    int offset = (page - 1) * size;
+
+    List<Instructor> instructors = instructorRepo.getAllInstructors(offset, size);
 
     APIResponseInstructor<List<Instructor>> response = new APIResponseInstructor<>("All instructors have been successfully fetched.", instructors, HttpStatus.OK, LocalDateTime.now());
 

@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface IStudentService {
-  ResponseEntity<APIResponseStudent<List<Student>>> getAllStudents();
+  ResponseEntity<APIResponseStudent<List<Student>>> getAllStudents(Integer page, Integer size);
 
   ResponseEntity<APIResponseStudent<Student>> createStudent(StudentRequest request);
 

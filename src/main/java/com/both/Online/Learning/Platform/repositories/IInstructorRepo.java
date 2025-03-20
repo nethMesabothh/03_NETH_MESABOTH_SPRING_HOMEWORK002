@@ -16,9 +16,9 @@ public interface IInstructorRepo {
           @Result(property = "instructorName", column = "instructor_name"),
           @Result(property = "email", column = "email")})
   @Select("""
-          SELECT * FROM instructors;
+          SELECT * FROM instructors OFFSET #{offset} LIMIT #{size};
           """)
-  List<Instructor> getAllInstructors();
+  List<Instructor> getAllInstructors(int offset, Integer size);
 
 
   @ResultMap("instructorMapper")

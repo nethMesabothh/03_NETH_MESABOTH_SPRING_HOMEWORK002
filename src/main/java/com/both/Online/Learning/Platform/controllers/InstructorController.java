@@ -21,8 +21,8 @@ public class InstructorController {
   }
 
   @GetMapping
-  public ResponseEntity<APIResponseInstructor<List<Instructor>>> getAllInstructors() {
-    return instructorService.getAllInstructors();
+  public ResponseEntity<APIResponseInstructor<List<Instructor>>> getAllInstructors(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer size) {
+    return instructorService.getAllInstructors(page, size);
   }
 
   @PostMapping

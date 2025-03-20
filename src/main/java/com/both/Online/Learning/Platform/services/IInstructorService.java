@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface IInstructorService {
 
-  ResponseEntity<APIResponseInstructor<List<Instructor>>> getAllInstructors();
+  ResponseEntity<APIResponseInstructor<List<Instructor>>> getAllInstructors(Integer page, Integer size);
 
   ResponseEntity<APIResponseInstructor<Instructor>> createInstructor(InstructorRequest request);
 

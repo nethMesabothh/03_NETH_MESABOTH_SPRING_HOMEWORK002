@@ -24,8 +24,8 @@ public class CourseController {
   }
 
   @GetMapping
-  public ResponseEntity<APIResponseCourse<List<Course>>> getAllCourses() {
-    return courseService.getAllCourses();
+  public ResponseEntity<APIResponseCourse<List<Course>>> getAllCourses(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer size) {
+    return courseService.getAllCourses(page, size);
   }
 
   @PostMapping
@@ -49,4 +49,4 @@ public class CourseController {
   }
 
 
-  }
+}

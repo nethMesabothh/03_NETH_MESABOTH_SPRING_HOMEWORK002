@@ -28,4 +28,8 @@ public interface IStudentCourse {
           """)
   void insertCourseByStudentId(Long studentId, Long courseId);
 
+  @Delete("""
+          DELETE FROM student_course WHERE student_id = #{studentId}
+          """)
+  void deleteCourseIdByStudentId(Long studentId);
 }
